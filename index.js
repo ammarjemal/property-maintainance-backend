@@ -4,6 +4,11 @@ const bodyparser = require("body-parser");
 const serviceRouter = require("./router/serviceRouter");
 const adminRouter = require("./router/adminRouter");
 const advertismentRouter = require("./router/advertismentRouter");
+const conversationRouter = require("./router/conversationRouter");
+const messageRouter = require("./router/messageRouter");
+const authRoute = require("./router/authRouter");
+const userRoute = require("./router/userRouter");
+
 const app = express();
 const cors = require('cors');
 
@@ -28,14 +33,18 @@ app.use(express.json());
 app.use(bodyparser.json());
 
 // app.use(express.static('public'));
-
+app.use("/", authRoute);
+app.use("/", userRoute);
 app.use("/", serviceRouter);
 app.use("/", adminRouter);
 app.use("/", advertismentRouter);
+app.use("/", conversationRouter);
+app.use("/", messageRouter);
+app.use("/", userRoute);
 
-// app.listen(5000, (req, res) => {
-//   console.log("Listening on port 5000");
-// });
+app.listen(5000, (req, res) => {
+  console.log("Listening on port 5000");
+});
 
 
 let users = []
@@ -68,6 +77,6 @@ app.get("/api", (req, res) => {
 });
 
    
-http.listen(PORT, () => {
-    console.log(`Server listening on ${PORT}`);
-});
+// http.listen(PORT, () => {
+//     console.log(`Server listening on ${PORT}`);
+// });
