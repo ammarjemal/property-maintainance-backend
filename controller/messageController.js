@@ -1,4 +1,4 @@
-const { Message, validateMessage } = require("../model/serviceModel");
+const { Message } = require("../model/messageModel");
 
 //add
 

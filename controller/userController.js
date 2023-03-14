@@ -2,10 +2,10 @@ const { Users, validateUser } = require("../model/userModel");
 
 const getUsers = async (req, res) => {
   const findAllUsers = await Users.find({});
-  console.log(findAllUsers);
+    console.log(findAllUsers);
   if (findAllUsers.length)
     return res.json({users: findAllUsers});
-  else res.status(404).send("No Users found");
+  else res.status(404).send("No users found");
 };
 
 const getUser = async (req, res) =>{

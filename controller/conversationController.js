@@ -1,8 +1,9 @@
 const { Conversation, validateConversation } = require("../model/conversationModel");
 
 const addConversation = async (req, res) => {
+  console.log(req.body.userId1, req.body.userId2);
     const newConversation = new Conversation({
-      members: [req.body.senderId, req.body.receiverId],
+      members: [req.body.userId1, req.body.userId2],
     });
   
     try {
@@ -32,7 +33,9 @@ const getConversations = async (req, res) => {
 // get conv includes two userId
 const getConversation = async (req, res) => {
 // router.get("/find/:firstUserId/:secondUserId", async (req, res) => {
-    console.log(req.params.userId1, req.params.userId2);
+  console.log("IDs");
+  console.log(req.params.userId1, req.params.userId2);
+  console.log("IDs");
     try {
       const conversation = await Conversation.findOne({
         members: { $all: [req.params.userId1, req.params.userId2] },
