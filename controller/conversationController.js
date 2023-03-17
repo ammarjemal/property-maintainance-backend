@@ -4,12 +4,28 @@ const addConversation = async (req, res) => {
   console.log(req.body.userId1, req.body.userId2);
     const newConversation = new Conversation({
       members: [req.body.userId1, req.body.userId2],
+      lastMessage: req.body.lastMessage
     });
   
     try {
       const savedConversation = await newConversation.save();
       res.status(200).json(savedConversation);
     } catch (err) {
+      res.status(500).json(err);
+    }
+};
+const updateConversation = async (req, res) => {
+  console.log(req.params.conversationId);
+  
+  try {
+      const newConversation = await Conversation.findByIdAndUpdate(req.params.conversationId, { lastMessage: req.body.lastMessage }, {
+        new: true, // to return the updated (new) document
+        runValidators: true,
+    })
+      const savedConversation = await newConversation.save();
+      res.status(200).json(savedConversation);
+    } catch (err) {
+      console.log(err);
       res.status(500).json(err);
     }
 };
@@ -47,4 +63,4 @@ const getConversation = async (req, res) => {
     }
 };
 
-module.exports = { addConversation, getConversation, getConversations};
+module.exports = { addConversation, getConversation, getConversations, updateConversation };

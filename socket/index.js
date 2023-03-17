@@ -39,11 +39,13 @@ io.on("connection", (socket) => {
     console.log("sendMessage: ", senderId, receiverId);
     const user = getUser(receiverId);
     console.log(users);
-    console.log(user);
-    io.to(user.socketId).emit("getMessage", {
-      senderId,
-      text,
-    });
+    if(user){
+      console.log(user);
+      io.to(user.socketId).emit("getMessage", {
+        senderId,
+        text,
+      });
+    }
   });
 
   //when disconnect
